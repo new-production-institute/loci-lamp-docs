@@ -25,8 +25,8 @@ import SvgContainer from './Containers/svgContainer.jsx'
 
 export default function App() {
 
-    const modelIn = useGLTF('./Tchibo_IN.glb') //Substitute the file name here for ALL IN
-    const modelOut = useGLTF('./Tchibo_OUT.glb') //Substitute the file name here for ALL OUT
+    const modelIn = useGLTF('./Tchibo_IN_r.glb') //Substitute the file name here for ALL IN
+    const modelOut = useGLTF('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
     const modelInCopy = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelInCopy2 = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelOutCopy = useMemo(() => modelOut.scene.clone(), [modelOut])
@@ -37,8 +37,8 @@ export default function App() {
     const cameraControlsRef = useRef()
     const modelRef = useRef()
 
-    useGLTF.clear('./Tchibo_IN.glb')  //Substitute the file name here for ALL IN
-    useGLTF.clear('./Tchibo_OUT.glb') //Substitute the file name here for ALL OUT
+    useGLTF.clear('./Tchibo_IN_r.glb')  //Substitute the file name here for ALL IN
+    useGLTF.clear('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
 
     const reset = useInterface((state) => state.resetCamera)
 
@@ -88,8 +88,8 @@ export default function App() {
                         >
                             <Controls />
                             <color args={['#f5f5f5']} attach="background" />
-                            {/*                             <Perf position="bottom-right" />
- */}
+                                                      {/* <Perf position="bottom-right" /> */}
+ 
                             {/* <directionalLight position={[1, 2, 3]} intensity={10} /> */}
                             {/* <ambientLight intensity={10} /> */}
                             <Bounds

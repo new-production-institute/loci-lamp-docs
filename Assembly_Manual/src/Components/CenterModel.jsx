@@ -34,7 +34,7 @@ export default function CenterModel({ cameraControlsRef }) {
         else if (!selectedPartsModel) {
             api.refresh(visibleObj).fit()
             invalidate()
-        }
+        }npm run dev
     }, [selectedPartsModel]) */
 
 }

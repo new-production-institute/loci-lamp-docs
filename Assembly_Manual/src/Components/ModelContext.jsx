@@ -6,7 +6,7 @@ export const ModelProvider = ({ children }) => {
     const [modelProperties, setModelProperties] = useState(null)
     const [stepCount, setStepCount] = useState(0)
     const [stepList, setStepList] = useState(null)
-    const [partsInOut, setPartsInOut] = useState(true)
+    const [partsInOut, setPartsInOut] = useState(false)
     const [visibleObj, setVisibleObj] = useState()
     const [currentStepName, setCurrentStepName] = useState()
     const [currentStepObject, setCurrentStepModel] = useState()

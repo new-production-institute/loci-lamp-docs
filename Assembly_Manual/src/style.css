@@ -12,7 +12,70 @@
     overflow: hidden;
     position: fixed;
 }
+.container {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical */
+  height: 90vh; /* or any height you need */
+  background-color: #000000;
 
+}
+.text{
+	display: block;
+    font-family: Barlow;
+	color: white;
+ 	  justify-content: center;  /* horizontal */
+	   align-items: center;      /* vertical */
+	   text-align:center; 
+}
+
+.btnIntro {
+    background-color: rgba(255, 255, 255);
+    border: 2px solid black;
+    color: rgb(0, 0, 0);
+    /* White text */
+    padding: 8px 10px;
+    /* Some padding */
+    font-size: 15px;
+    /* Set a font size */
+    font-family: Barlow;
+    cursor: pointer;
+    /* Mouse pointer on hover */
+    width: auto;
+    margin-top: 50px;
+    /* margin-right: 10px; */
+}
+
+.btnIntro:hover {
+    background-color: #000000;
+    color: white;
+	    border: 2px solid rgb(255, 255, 255);
+}
+
+.responsive {
+    display: block;
+  width: 100px;
+  height: auto;
+   	  justify-content: center;  /* horizontal */
+	   text-align:center; 
+       margin: auto;
+}
+.footer{
+    display: block;
+font-family: Barlow;
+	color: white;
+	  justify-content: center; /* horizontal */
+	  align-items: center;     /* vertical */
+	  text-align:center;
+/* 	  z-index: 1;
+ */	    position: fixed;
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  margin: auto;
+    background-color: #000000;
+
+}
 /* #renderWindow {
     position: relative;
     top: 0;
@@ -338,10 +401,10 @@ margin-top: 60px;
     overflow: auto;
 }
 
-h2 {
+/* h2 {
     margin: 0px;
     float: left;
-}
+} */
 
 .navMenu {
     margin-left: auto;
@@ -439,6 +502,9 @@ h2 {
     font-family: Barlow;
     font-size: 24px;
     padding-top: 5px;
+        margin: 0px;
+    float: left;
+    height: fit-content;
 }
 
 #stepControl {
@@ -636,7 +702,7 @@ h2 {
         display: block;
         height: 150px;
          order: 2; 
-                 margin-top: 90px;
+                 margin-top: 110px;
                  width: 100%;
                  overflow: auto;
 

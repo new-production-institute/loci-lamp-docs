@@ -71,7 +71,7 @@ export default function Header() {
                 <img src="./InMachines_Logo_positive_RGB.svg"  className="mainLogo" />
                 <img src="./InMachines_Logo_positive_RGB_r.svg" className="reducedLogo" />
             </div>
-            <h1 className="Title" >Tchibo Locilamp</h1>
+            <h1 className="Title" >LOCI LAMP</h1>
 
             <div className="navMenu" >
 {/*                 <ul >

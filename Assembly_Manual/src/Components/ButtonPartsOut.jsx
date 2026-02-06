@@ -5,7 +5,7 @@ import useInterface from '../stores/useInterface.jsx'
 export default function ButtonPartsOut() {
 
     const { setModelInOut, selectedParts } = useContext(ModelContext)
-    const [partsOut, setPartsOut] = useState(false)
+    const [partsOut, setPartsOut] = useState(true)
     const wiringStep = useInterface((state) => { return state.wiringStep })
 
     const buttonClickPartsOut = () => {
@@ -25,7 +25,7 @@ export default function ButtonPartsOut() {
 
     return <>
         {!wiringStep ?
-            <button onClick={buttonClickPartsOut} className="btn" id="partsOut">Explode</button> : null
+            <button onClick={buttonClickPartsOut} className="btn" id="partsOut">Assemble</button> : null
         }
     </>
 }
