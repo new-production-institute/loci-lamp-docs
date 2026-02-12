@@ -19,11 +19,34 @@ export default function ButtonNext() {
             if (language == 'DE'){
                     btnTitlePrevious = "Vorheriger Schritt" 
                     btnTitleNext = "Nächster Schritt"
-   
         }
-            console.log(language)
 
      },[language])
+
+          useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth < 890) {
+            btnTitlePrevious = ""
+                    btnTitleNext = ""
+          } 
+else{
+     if (language == 'EN'){
+                    btnTitlePrevious = "Previous Step"
+                    btnTitleNext = "Next Step"
+        }
+            if (language == 'DE'){
+                    btnTitlePrevious = "Vorheriger Schritt" 
+                    btnTitleNext = "Nächster Schritt"
+   
+        }
+}
+        };
+    
+        window.addEventListener("resize", handleResize);
+        handleResize();
+    
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
 
     const buttonClickNext = () => {
 
@@ -40,7 +63,7 @@ export default function ButtonNext() {
 
     return <>
         {stepCount >= 1 ?
-            <button onClick={buttonClickPrevious} className="btn" id="nextStep" > &#10094; {btnTitlePrevious} &nbsp;</button> : null}
+            <button onClick={buttonClickPrevious} className="btn" id="nextStep" > &#10094; {btnTitlePrevious} </button> : null}
 
         {stepList && stepCount + 1 <= stepList.length - 1 ? <button onClick={buttonClickNext} className="btn" id="nextStep">{btnTitleNext} &#10095; </button> : null}
     </>

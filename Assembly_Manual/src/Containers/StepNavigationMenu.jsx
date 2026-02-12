@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useContext, useState } from "react";
 import { ModelContext } from "/Components/ModelContext.jsx";
 import { MdClose, MdMenu } from "react-icons/md";
 import { useOutsideClick } from "/stores/useOutsideClick";
+import useInterface from '/stores/useInterface.jsx';
+
+let btnTitle
 
 export default function StepNavigationMenu() {
     //console.log(useOutsideClick)
@@ -9,6 +12,18 @@ export default function StepNavigationMenu() {
     const { stepList, setStepPosition, stepCount, currentStepName, modelProperties } = useContext(ModelContext)
     const [btnClass, setBtnClass] = useState('stepNaviBtn');
     const [btnColor, setBtnColor] = useState();
+
+    const language = useInterface((state) => { return state.language })
+
+    useEffect(()=>{
+        if (language == 'EN'){
+                    btnTitle = "Steps"
+        }
+            if (language == 'DE'){
+                    btnTitle = "Schritte"     
+        }
+     },[language])
+
 
     if (stepList) {
         const tempArray = [...Array(stepList.length)]
@@ -46,7 +61,7 @@ export default function StepNavigationMenu() {
     return (
         <>
           <button className='hamburgerStepNavi' onClick={toggleMobileMenu} >
-                         {isShown ? <MdClose />: 'Steps' }
+                         {isShown ? <MdClose />: `${btnTitle}` }
                     </button>
         <div className={isShown? 'stepNaviMobile': 'stepNavi'} ref={refb}>
             <ul >
