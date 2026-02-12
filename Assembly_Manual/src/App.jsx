@@ -140,8 +140,8 @@ export default function App() {
         </Fragment >
     </>
 }
-useGLTF.preload('./Tchibo_IN.glb') //Substitute the file name here for ALL IN
-useGLTF.preload('./Tchibo_OUT.glb') //Substitute the file name here for ALL OUT
+useGLTF.preload('./Tchibo_IN_r.glb') //Substitute the file name here for ALL IN
+useGLTF.preload('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
 
 
 function Controls() {
