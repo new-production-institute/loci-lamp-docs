@@ -49,6 +49,7 @@ const App = React.lazy(() => import('./App.jsx'))
     const reloadCount = sessionStorage.getItem('reloadCount');
     if(reloadCount < 2) {
       sessionStorage.setItem('reloadCount', String(reloadCount + 1));
+      console.log(reloadCount)
       window.location.reload();
     } else {
       sessionStorage.removeItem('reloadCount');
