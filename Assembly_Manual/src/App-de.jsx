@@ -23,12 +23,13 @@ import useInterface from './stores/useInterface.jsx'
 import SvgContainer from './Containers/svgContainer.jsx'
 
 
-export default function App() {
+export default function AppDE() {
 
 
+    const modelIn = useGLTF('./Tchibo_IN_DE_r.glb') //Substitute the file name here for ALL IN
+    const modelOut = useGLTF('./Tchibo_OUT_DE_r.glb') //Substitute the file name here for ALL OUT
+   
 
-    const modelIn = useGLTF('./Tchibo_IN_r.glb') //Substitute the file name here for ALL IN
-    const modelOut = useGLTF('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
     const modelInCopy = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelInCopy2 = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelOutCopy = useMemo(() => modelOut.scene.clone(), [modelOut])
@@ -39,14 +40,14 @@ export default function App() {
     const cameraControlsRef = useRef()
     const modelRef = useRef()
 
-    useGLTF.clear('./Tchibo_IN_r.glb')  //Substitute the file name here for ALL IN
-    useGLTF.clear('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
+    useGLTF.clear('./Tchibo_IN_DE_r.glb')  //Substitute the file name here for ALL IN
+    useGLTF.clear('./Tchibo_OUT_DE_r.glb') //Substitute the file name here for ALL OUT
 
     const reset = useInterface((state) => state.resetCamera)
-        const languageSwitch = useInterface((state) => state.languageEN)
-    
-        languageSwitch()
+    const languageSwitch = useInterface((state) => state.languageDE)
 
+    languageSwitch()
+    
     return <>
 
         <Fragment>
@@ -125,7 +126,7 @@ export default function App() {
 
                     <button className="btn" style={{ position: 'absolute', bottom: '20px', left: '20px' }}
                         onClick={reset}
-                    ><MdViewInAr /> Reset Camera</button>
+                    ><MdViewInAr /> Kamera zurücksetzen </button>
                     <ButtonPartsOut />
                      <RemarksBox /> 
                     {/* <HowToBox /> */}
@@ -140,8 +141,8 @@ export default function App() {
         </Fragment >
     </>
 }
-useGLTF.preload('./Tchibo_IN.glb') //Substitute the file name here for ALL IN
-useGLTF.preload('./Tchibo_OUT.glb') //Substitute the file name here for ALL OUT
+useGLTF.preload('./Tchibo_IN_DE_r.glb') //Substitute the file name here for ALL IN
+useGLTF.preload('./Tchibo_OUT_DE_r.glb') //Substitute the file name here for ALL OUT
 
 
 function Controls() {

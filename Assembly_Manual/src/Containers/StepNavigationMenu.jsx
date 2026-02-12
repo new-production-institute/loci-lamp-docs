@@ -46,7 +46,7 @@ export default function StepNavigationMenu() {
     return (
         <>
           <button className='hamburgerStepNavi' onClick={toggleMobileMenu} >
-                         {isShown ? <MdClose />: <MdMenu />}
+                         {isShown ? <MdClose />: 'Steps' }
                     </button>
         <div className={isShown? 'stepNaviMobile': 'stepNavi'} ref={refb}>
             <ul >

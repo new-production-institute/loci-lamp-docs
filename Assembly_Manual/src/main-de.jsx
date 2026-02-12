@@ -2,7 +2,7 @@ import './style.css'
 //import ReactDOM from 'react-dom/client'
 //import App from './App'
 import Header from './Containers/Header.jsx'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Suspense, Component } from 'react'
 import { ModelProvider, ModelContext } from "./Components/ModelContext.jsx"
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
@@ -12,15 +12,14 @@ import SvgContainer from './Containers/svgContainer.jsx'
 import { useProgress } from '@react-three/drei'
 
 
-
 //const root = ReactDOM.createRoot(document.querySelector('#root'))
-const App = React.lazy(() => import('./App.jsx'))
+const AppDE = React.lazy(() => import('./App-de.jsx'))
 
 // function Loader() {
 //     const { active, progress, errors, item, loaded, total } = useProgress()
 //      return <Html center>{progress} % loaded</Html>
 // }
- /* class ErrorBoundary extends Component {
+/*  class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
         this.state = { hasError: false };
@@ -45,7 +44,8 @@ const App = React.lazy(() => import('./App.jsx'))
         return this.props.children;
     }
 }  */
-    const reloadPage = ()=> {
+
+        const reloadPage = ()=> {
     const reloadCount = sessionStorage.getItem('reloadCount');
     if(reloadCount < 2) {
       sessionStorage.setItem('reloadCount', String(reloadCount + 1));
@@ -55,10 +55,9 @@ const App = React.lazy(() => import('./App.jsx'))
     }
   }
 
-
-
-export default function Main() {
-reloadPage()
+export default function MainDE() {
+    reloadPage()
+   
     return<>
 
     <Suspense fallback={<Loader />}>
@@ -75,7 +74,7 @@ reloadPage()
                                 <Route path='/*' element={<App />} />
                                 <Route path='/HowTo/*' element={<HowToSection />} />
                              </Routes>  */} 
-                              <App/>
+                              <AppDE/>
                 
                        {/* </ErrorBoundary> */} 
 

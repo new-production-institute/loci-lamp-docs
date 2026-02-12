@@ -14,6 +14,8 @@ export default create(subscribeWithSelector((set) => {
 
         wiringStep: false,
 
+        language: 'EN',
+
         resetCamera: () => {
             set(() => {
 
@@ -57,6 +59,18 @@ export default create(subscribeWithSelector((set) => {
         isNotWiringStep: () => {
             set(() => {
                 return { wiringStep: false }
+            })
+        },
+
+        languageDE: () => {
+            set(() => {
+return { language: 'DE'}
+            })
+        },
+
+                languageEN: () => {
+            set(() => {
+return { language: 'EN'}
             })
         }
     }

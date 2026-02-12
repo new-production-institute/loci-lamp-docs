@@ -3,7 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import { SlGlobe } from "react-icons/sl";
-import { MdClose, MdMenu } from "react-icons/md";
 
 
 const HeaderBar = styled.header`
@@ -13,31 +12,32 @@ width: 100%;
     height: 56px;
     position: relative;
     align-items: center;
-    background-color: #fff;
+    background-color: #000000;
         font-family: Barlow;
     font-size: medium;
 `;
 
-export default function Header() {
+// Define MobileMenu component
+const MobileMenu = () => {
+    return (
+        <div className={'mobile-menu'}>
+            <a href='#home'>Home</a>
+            <a href='#news'>News</a>
+            <a href='#shop'>Shop</a>
+            <a href='#contact'>Contact</a>
+            <a href='#about'>About</a>
+            <a href='#privacy'>Privacy Policy</a>
+        </div>
+    );
+};
+
+export default function HeaderIntro() {
 
     const [isShown, setIsShown] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsShown(!isShown);
     };
-
-     useEffect(() => {
-        const handleResize = () => {
-          if (window.innerWidth < 890) {
-            setIsShown(false);
-          } 
-        };
-    
-        window.addEventListener("resize", handleResize);
-        handleResize();
-    
-        return () => window.removeEventListener("resize", handleResize);
-      }, []);
 
     const home = useRef()
     const howTo = useRef()
@@ -54,8 +54,6 @@ export default function Header() {
         setIsActive(!isActive);
     };
 
-   
-
     //clean up function to remove the active class
     const removeActive = () => {
         setIsActive(false)
@@ -71,25 +69,23 @@ export default function Header() {
 
     return <>
         <HeaderBar>
-            <div >
-                <img src="./InMachines_Logo_positive_RGB.svg"  className="mainLogo" />
-                <img src="./InMachines_Logo_positive_RGB_r.svg" className="reducedLogo" />
-            </div>
-            <h1 className="Title" >LOCI LAMP</h1>
 
-            <div className={isShown? 'navMenuMobile': 'navMenu'} >
-               <ul>
-                    <li><NavLink to="/">intro</NavLink></li>
+            <div className="navMenuIntro" >
+                
+                <ul >
                     <li><SlGlobe style={{textAlign: "center", fontSize: "30px", paddingTop:"10px"}}/></li>
-                    <li><NavLink to="/main">EN</NavLink></li>
-                    <li><NavLink to="/main-de">DE</NavLink></li>
-                    {/*   
-                    <li><NavLink to='/HowTo' target="_blank">How To</NavLink></li>                   */}
-                </ul> 
+                    <li><NavLink to="/">EN</NavLink></li>
+                    <li><NavLink to="/intro-de">DE</NavLink></li>
+
+                    {/*                     <li><a href="./index.html/" ref={home} className={`${isHomeActive ? 'active' : ''}`} >Assembly Manual</a></li>
+                    <li><a href="./howTo.html" ref={howTo} target="_blank" >How To</a></li>
+                    <li><a href="#contact">Tools</a></li>
+                    <li><a href="#about">Contact</a></li>  */}
+                </ul>
 
             </div>
             <button className='hamburger' onClick={toggleMobileMenu}>
-                {isShown ? <MdClose />: <MdMenu/> }
+                &#8801;
             </button>
 
         </HeaderBar>

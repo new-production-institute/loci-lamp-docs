@@ -1,34 +1,20 @@
-import { useBounds, Clone, Outlines, Bvh, Edges } from "@react-three/drei"
 import React, { useRef, useEffect, useContext, useState, useMemo } from "react";
 import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect.js"
 import { extend, useThree } from "@react-three/fiber";
-import { BackSide, Mesh, Box3, Group, BufferGeometry, MeshBasicMaterial, EdgesGeometry, LineBasicMaterial, LineSegments, BoxGeometry } from 'three'
-import MouseEvent from "./MouseEvent.jsx";
+import {  Group, MeshBasicMaterial, EdgesGeometry, LineBasicMaterial, LineSegments} from 'three'
 import { ModelContext } from "./ModelContext.jsx";
 import { useCallback } from "react";
-import { Select, Outline, EffectComposer, Selection, Glitch } from "@react-three/postprocessing";
-import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass.js";
-import Highlight from "./Highlight.jsx";
-import { BlendFunction, Resizer } from "postprocessing";
+import { Selection} from "@react-three/postprocessing";
+
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import * as THREE from 'three';
-import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { MemoizedModelAux } from "./ModelAux.jsx";
 import useInterface from "/stores/useInterface"
 import { invalidate } from "@react-three/fiber"
 
 
 //Added for EdgesGeometry attempt
-import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js';
-import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 
-import { OutsideEdgesGeometry } from '../OutsideEdgesGeometry.js';
-import { ConditionalEdgesGeometry } from '../ConditionalEdgesGeometry.js';
 import { ConditionalEdgesShader } from '../ConditionalEdgesShader.js';
-import { ConditionalLineSegmentsGeometry } from '../Lines2/ConditionalLineSegmentsGeometry.js';
-import { ConditionalLineMaterial } from '../Lines2/ConditionalLineMaterial.js';
-import { ColoredShadowMaterial } from '../ColoredShadowMaterial.js';
 
 extend({ OutlineEffect })
 
@@ -38,6 +24,7 @@ const stepsNames = []
 const stepsNamesNavi = []
 
 export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, modelOutCopy }) {
+
 
     //Bvh - for selecting parts by clicking on the 3d model
     THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
@@ -49,9 +36,6 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
     const { gl, camera, scene } = useThree() //finds the renderer (gl)
     const machine = useRef()
     const machineAux = useRef()
-    //const machineOutline = useRef()
-    //const cylinder = useRef()
-    //const selected = useRef()
 
     gl.setPixelRatio(Math.min(window.devicePixelRatio, 2)) //Important for performance. Limits the pixel ratio. More than 2 is unecessary.
 
@@ -85,18 +69,19 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
 
     //steps grouping
     const exceptionArray = [ //shown alone
-                "07_Place_the_shade_on_the_structure"
+                "07_Place_the_shade_on_the_structure",
+                "07_Lampenschirm_auf_die_Struktur_setzen"
     ]
     const preparingStepArray = [ //shown grouped
-/*           [
- "01_Assemble_the_lamp_shade_-_part_1",
-  "02_Assemble_the_lamp_shade_-_part_2",
-    "03_Assemble_the_lamp_shade_-_part_3"
-        ], */
         [
             "04_Assemble_the_structure",
             "05_Fix_the_light_bulb_socket",
             "06_Screw_in_the_light_bulb"
+        ],
+        [
+            "04_Struktur_montieren",
+            "05_Lampenfassung_befestigen",
+            "06_Leuchtmittel_einschrauben"
         ]
     ]
     const wiringStepArray = [ //add schematic
@@ -135,129 +120,6 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
         //sorts the step titles in the correct order for navigation
         stepsNamesNavi.sort()
         setStepNameNavi(stepsNamesNavi)
-
-
-        // modelInCurrent.traverse((o) => {
-        //     o.frustumCulled = true //fixes disappearing faces
-        //     if (o.isMesh) { //Assigns material to the objects of the current step
-        //         o.frustumCulled = false //fixes disappearing faces
-        //         o.material = machineCurrentMaterial
-        //         machineCurrentMaterial.dispose()
-        //         //var geo = new EdgesGeometry(o.geometry, 20); // or WireframeGeometry
-        //         //var wireframe = new LineSegments(geo, lineMat);
-        //         //conditional lines
-        //         // const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(o.geometry));
-        //         // const line = new THREE.LineSegments(lineGeom, material)
-        //         // o.add(line)
-        //         //o.add(wireframe);
-        //         //o.add(outline)
-        //         //geo.dispose()
-        //         //o.geometry.dispose()
-        //         machineCurrentMaterial.dispose()
-
-        //         //const parent = o.parent;
-
-        //         // Remove everything but the position attribute
-        //         /*                     const mergedGeom = o.geometry.clone();
-        //                             for (const key in mergedGeom.attributes) {
-        //                                 if (key !== 'position') {
-        //                                     mergedGeom.deleteAttribute(key);
-        //                                 }
-        //                             } */
-
-        //         /*  // Create the conditional edges geometry and associated material
-        //          const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(mergedGeom));
-
-        //          // Create the line segments objects and replace the mesh
-        //          const line = new THREE.LineSegments(lineGeom, material);
-        //          line.position.copy(o.position);
-        //          line.scale.copy(o.scale);
-        //          line.rotation.copy(o.rotation);
-
-        //          //const thickLineGeom = new ConditionalLineSegmentsGeometry().fromConditionalEdgesGeometry(lineGeom);
-        //          //const thickLines = new LineSegments2(thickLineGeom, new ConditionalLineMaterial({ color: LIGHT_LINES, linewidth: 2 }));
-        //          //thickLines.position.copy(mesh.position);
-        //          //thickLines.scale.copy(mesh.scale);
-        //          //thickLines.rotation.copy(mesh.rotation); 
-
-        //          //parent.remove(mesh);
-        //          parent.add(line);
-        //          //parent.add(thickLines); */
-
-        //         if (o.userData.name === "Curves") { //Assigns material to curves
-        //             o.material = curvesMaterial
-        //             curvesMaterial.dispose()
-
-        //         }
-
-        //         o.geometry.dispose()
-
-        //     }
-        // })
-
-        // modelOutCopy.traverse((o) => {
-        //     o.frustumCulled = true //fixes disappearing faces
-        //     if (o.isMesh && o.parent.userData.name != "Curves") { //Assigns material to the objects of the current step
-        //         o.frustumCulled = false //fixes disappearing faces
-        //         o.material = machineCurrentMaterial
-        //         machineCurrentMaterial.dispose()
-        //         var geo = new EdgesGeometry(o.geometry, 20); // or WireframeGeometry
-        //         var wireframe = new LineSegments(geo, lineMat);
-        //         //conditional lines
-        //         // const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(o.geometry));
-        //         // const line = new THREE.LineSegments(lineGeom, material)
-        //         // o.add(line)
-        //         //o.add(wireframe);
-        //         //o.add(outline)
-        //         geo.dispose()
-        //         o.geometry.dispose()
-        //         machineCurrentMaterial.dispose()
-
-        //         //const parent = o.parent;
-
-        //         // Remove everything but the position attribute
-        //         /*                     const mergedGeom = o.geometry.clone();
-        //                             for (const key in mergedGeom.attributes) {
-        //                                 if (key !== 'position') {
-        //                                     mergedGeom.deleteAttribute(key);
-        //                                 }
-        //                             } */
-
-        //         /*  // Create the conditional edges geometry and associated material
-        //          const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(mergedGeom));
-
-        //          // Create the line segments objects and replace the mesh
-        //          const line = new THREE.LineSegments(lineGeom, material);
-        //          line.position.copy(o.position);
-        //          line.scale.copy(o.scale);
-        //          line.rotation.copy(o.rotation);
-
-        //          //const thickLineGeom = new ConditionalLineSegmentsGeometry().fromConditionalEdgesGeometry(lineGeom);
-        //          //const thickLines = new LineSegments2(thickLineGeom, new ConditionalLineMaterial({ color: LIGHT_LINES, linewidth: 2 }));
-        //          //thickLines.position.copy(mesh.position);
-        //          //thickLines.scale.copy(mesh.scale);
-        //          //thickLines.rotation.copy(mesh.rotation); 
-
-        //          //parent.remove(mesh);
-        //          parent.add(line);
-        //          //parent.add(thickLines); */
-
-        //         o.geometry.dispose()
-
-        //     }
-        //     if (o.userData.name === "Curves") { //Assigns material to curves
-        //         o.material = curvesMaterial
-        //         if (o.isGroup) {
-        //             for (let i = 0; i < o.children.length; i++) {
-        //                 if (o.children[i].isMesh) {
-        //                     o.children[i].material = curvesMaterial
-        //                 }
-
-        //             }
-        //         }
-        //         //curvesMaterial.dispose()
-        //     }
-        // })
 
         //applies material for already built part (modelAux)
         modelAux.traverse((o) => {
@@ -310,24 +172,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
 
     useEffect(() => {
         if (currentModel) {
-            //console.log(savedSelectedParts)
-            // if (savedSelectedParts && savedSelectedParts != []) {
-            //     for (let i = 0; i < currentModel.children.length; i++) {
-            //         currentModel.children[i].traverse((mesh) => {
-            //             if (mesh.isMesh && savedSelectedParts.includes(currentModel.children[i].userData.name && currentModel.children[i].userData.name === "Curves")) {
-            //                 //mesh.frustumCulled = false //fixes disappearing faces
-            //                 mesh.material = machineCurrentMaterial
-            //                 var geometry = new EdgesGeometry(mesh.geometry, 20); // or WireframeGeometry
-            //                 var wireframe = new LineSegments(geometry, lineMat);
-            //                 mesh.add(wireframe);
-            //                 geometry.dispose()
-            //                 lineMat.dispose()
-            //             }
-            //         })
-            //     }
-            //     //setSavedSelectedParts([])
-            // }
-
+          
             setCurrentObject(currentModel.getObjectByName(stepName[stepCount])) //assigns the model of current step
             if (selectedParts != []) {
                 highlightParts()
@@ -374,7 +219,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                     if (children.isGroup && children.userData.name != undefined) {
                         partsNamesArray.push(children.userData.name)
                     }
-                    if (children.isMesh && children.name=="Light_Bulb*"){
+                    if (children.isMesh && children.name=="Light_Bulb*" || children.isMesh && children.name=="Leuchtmittel*"){
                                                 partsNamesArray.push(children.userData.name)
 
                     }
@@ -467,27 +312,6 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
               }
           }) */
 
-        /*         for (let i = groupVisibleObj.children[0].children.length; i = 0; i++) {
-                    if (groupVisibleObj.children[0].children[i].isMesh) {
-                        let geoClone = new BufferGeometry()
-                        geoClone = groupVisibleObj.children[0].children[i].geometry.clone()
-                        geometriesArray.push(geoClone)
-        
-                    }
-                }
-                console.log(groupVisibleObj, geometriesArray) */
-        // groupVisibleObj.traverse((o) => {
-        //     if (o.isMesh) {
-        //         let geoClone = new BufferGeometry()
-        //         geoClone = o.geometry.clone()
-        //         geometriesArray.push(geoClone)
-
-        //     }
-        // })
-        // if (geometriesArray.length != 0) {
-        //     let geom = BufferGeometryUtils.mergeBufferGeometries(geometriesArray)
-        //     setGeoGroup(geom)
-        // }
         let clonedCurrentStepObject = currentModel.clone()
         groupVisibleObj.add(clonedCurrentStepObject)
         //saves the visible objects to use in the visualization bounding box    
@@ -500,12 +324,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
             const geometriesArray = []
             for (let i = 0; i < currentModel.children.length; i++) {
                 currentModel.children[i].traverse((mesh) => {
-/*                     if(mesh.isMesh && mesh.parent.userData.name.includes(currentModel.children[i].userData.name)){
-                        mesh.frustumCulled = false //fixes disappearing faces
-                        //const clonedGeometry = mesh.geometry.clone()
-                        //geometriesArray.push(mesh.geometry)
-                    }
-                     */
+
                     if (mesh.isMesh && selectedParts.includes(currentModel.children[i].userData.name)) {
                         mesh.frustumCulled = false //fixes disappearing faces
                         const clonedGeometry = mesh.geometry.clone()
@@ -543,66 +362,18 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                         //curvesMaterial.dispose()
                     }
 
-                   /*  if (geometriesArray != []) {
-                const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometriesArray)
-                                console.log(mergedGeometry)
-
-            } */
-                })
-/* if (geometriesArray != undefined) {
-                    const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometriesArray)
-                    const newMesh = new Mesh(mergedGeometry, machineCurrentMaterial)
-                    newMesh.name = currentModel.children[i].userData.name
-                    newMesh.material = machineCurrentMaterial
-                    console.log(currentModel)
-                }  */            }
+                })           }
             setSavedSelectedParts(selectedParts)
-             /*  if (geometriesArray != []) {
-                const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometriesArray)
-                                console.log(mergedGeometry)
 
-            }  */
         }
 
     })
-    const findClickedObj = useCallback(() => {
-        clickedObj.traverse((obj) => {
-            if (obj.name === "Botom_Panel") {
-                console.log(clickedObj.userData.name)
-            }
-        })
-    })
-    const highlightOnClick = useCallback((event) => {
-        //if (event.object === isGroup) {
-        event.stopPropagation()
-        //setClickedObj(event.object)
-        // Setting "firstHitOnly" to true means the Mesh.raycast function will use the
-        // bvh "raycastFirst" function to return a result more quickly.
-        /*         const raycaster = new THREE.Raycaster();
-                raycaster.firstHitOnly = true;
-                raycaster.intersectObjects(event.object); */
-        //}
 
-    })
+    
     const stepChange = useCallback(() => {
-        //setProperties(state)
-        //console.log(cylinder)
-        //cylinder.current.geometry.computeBoundsTree()
-        if (currentModel) {
-            // console.log(currentModel)
-            const currentModelCopy = currentModel.clone()
-            //setModelOutlineCopy(currentModelCopy)
-            /*             currentModelCopy.traverse((o) => {
-                            if (o.isMesh) {
-                                machineMaterial.side = BackSide
-                                machineMaterial.color.set(0x000000)
-                                o.material = machineMaterial
-                                o.scale.multiplyScalar(1.005)
-                            }
-                        
-                        }) */
 
-            //setCurrentObj(currentStepObject)
+        if (currentModel) {
+            const currentModelCopy = currentModel.clone()
 
             for (let i = 0; i < model.children.length; i++) {
                 //initially makes the model invisible
@@ -614,63 +385,6 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                 modelAux.children[i].visible = false
             }
 
-            // currentModel.traverse((o) => {
-            //     o.frustumCulled = true //fixes disappearing faces
-            //     if (o.isMesh) { //Assigns material to the objects of the current step
-            //         o.frustumCulled = false //fixes disappearing faces
-            //         machineMaterial.color.set(0xffffff);
-            //         o.material = machineMaterial
-            //         machineMaterial.dispose()
-            //         var geo = new EdgesGeometry(o.geometry, 20); // or WireframeGeometry
-            //         var wireframe = new LineSegments(geo, lineMat);
-            //         //conditional lines
-            //         // const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(o.geometry));
-            //         // const line = new THREE.LineSegments(lineGeom, material)
-            //         // o.add(line)
-            //         o.add(wireframe);
-            //         //o.add(outline)
-            //         geo.dispose()
-            //         o.geometry.dispose()
-            //         machineMaterial.dispose()
-
-            //         //const parent = o.parent;
-
-            //         // Remove everything but the position attribute
-            //         /*                     const mergedGeom = o.geometry.clone();
-            //                             for (const key in mergedGeom.attributes) {
-            //                                 if (key !== 'position') {
-            //                                     mergedGeom.deleteAttribute(key);
-            //                                 }
-            //                             } */
-
-            //         /*  // Create the conditional edges geometry and associated material
-            //          const lineGeom = new ConditionalEdgesGeometry(BufferGeometryUtils.mergeVertices(mergedGeom));
-
-            //          // Create the line segments objects and replace the mesh
-            //          const line = new THREE.LineSegments(lineGeom, material);
-            //          line.position.copy(o.position);
-            //          line.scale.copy(o.scale);
-            //          line.rotation.copy(o.rotation);
-
-            //          //const thickLineGeom = new ConditionalLineSegmentsGeometry().fromConditionalEdgesGeometry(lineGeom);
-            //          //const thickLines = new LineSegments2(thickLineGeom, new ConditionalLineMaterial({ color: LIGHT_LINES, linewidth: 2 }));
-            //          //thickLines.position.copy(mesh.position);
-            //          //thickLines.scale.copy(mesh.scale);
-            //          //thickLines.rotation.copy(mesh.rotation); 
-
-            //          //parent.remove(mesh);
-            //          parent.add(line);
-            //          //parent.add(thickLines); */
-
-            //         if (o.userData.name === "Curves") { //Assigns material to curves
-            //             o.material = curvesMaterial
-            //             curvesMaterial.dispose()
-            //         }
-
-            //         o.geometry.dispose()
-
-            //     }
-            // });
             //If it is listed in the exception Array, show model
             if (isException) {
                 console.log("exception")

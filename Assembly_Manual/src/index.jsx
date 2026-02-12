@@ -5,6 +5,8 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { NavLink, Link } from "react-router-dom";
 import Main from './main.jsx';
 import Intro from './intro.jsx';
+import IntroDE from './intro-de.jsx';
+import MainDE from './main-de.jsx';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
@@ -16,6 +18,8 @@ root.render(
 		   <Routes>
  								<Route path='/' element={<Intro />} />
 								<Route path='/main' element={<Main />} />
+								<Route path='/intro-de' element={<IntroDE/>} />
+								<Route path='/main-de' element={<MainDE />} />
         </Routes>
 	   
 	</Router> 
