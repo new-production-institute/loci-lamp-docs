@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.2 283.46">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #000;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        font-family: Barlow-Medium, Barlow;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .cls-6 {
+        fill: blue;
+      }
+
+      .cls-7 {
+        fill: #e30613;
+      }
+
+      .cls-8 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-9 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-10 {
+        fill: #1d1d1b;
+      }
+
+      .cls-11 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-12 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-13 {
+        letter-spacing: 0em;
+      }
+
+      .cls-14 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-15 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: -.05em;
+      }
+
+      .cls-17 {
+        letter-spacing: .03em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-7" width="49.3" height="49.3"/>
+  <text class="cls-5" transform="translate(91.94 14.3)"><tspan x="0" y="0">CUT</tspan></text>
+  <text class="cls-5" transform="translate(91.94 44.6)"><tspan class="cls-15" x="0" y="0">p</tspan><tspan class="cls-1" x="7.73" y="0">o</tspan><tspan class="cls-12" x="15.18" y="0">w</tspan><tspan x="25.27" y="0">er</tspan></text>
+  <text class="cls-5" transform="translate(210.45 44.6)"><tspan x="0" y="0">s</tspan><tspan class="cls-15" x="6.82" y="0">p</tspan><tspan x="14.55" y="0">eed</tspan></text>
+  <text class="cls-5" transform="translate(462.71 44.6)"><tspan x="0" y="0">m</tspan><tspan class="cls-13" x="11.56" y="0">a</tspan><tspan class="cls-8" x="18.7" y="0">t</tspan><tspan x="23.7" y="0">erial</tspan></text>
+  <g>
+    <line class="cls-2" x1="139.52" y1="48.04" x2="139.52" y2="29.94"/>
+    <polygon class="cls-3" points="139.52 29.94 135.87 38.76 143.17 38.76 139.52 29.94"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="258.48" y1="29.94" x2="258.48" y2="48.04"/>
+    <polygon class="cls-3" points="258.48 48.04 262.13 39.23 254.83 39.23 258.48 48.04"/>
+  </g>
+  <polygon class="cls-2" points="389 44.6 332.87 44.6 332.87 29.94 356.76 29.94 388 29.94 389 44.6"/>
+  <polygon class="cls-2" points="447.65 44.6 391.52 44.6 392.52 29.94 414.41 29.94 447.65 29.94 447.65 44.6"/>
+  <rect class="cls-10" y="234.15" width="49.3" height="49.3"/>
+  <text class="cls-5" transform="translate(91.94 248.45)"><tspan x="0" y="0">ENG</tspan><tspan class="cls-17" x="26.38" y="0">R</tspan><tspan class="cls-11" x="35.36" y="0">A</tspan><tspan class="cls-14" x="43.65" y="0">V</tspan><tspan class="cls-9" x="51.91" y="0">E</tspan></text>
+  <text class="cls-5" transform="translate(91.94 278.76)"><tspan class="cls-15" x="0" y="0">p</tspan><tspan class="cls-1" x="7.73" y="0">o</tspan><tspan class="cls-12" x="15.18" y="0">w</tspan><tspan x="25.27" y="0">er</tspan></text>
+  <text class="cls-5" transform="translate(210.45 278.76)"><tspan x="0" y="0">s</tspan><tspan class="cls-15" x="6.82" y="0">p</tspan><tspan x="14.55" y="0">eed</tspan></text>
+  <text class="cls-5" transform="translate(462.71 278.76)"><tspan x="0" y="0">m</tspan><tspan class="cls-13" x="11.56" y="0">a</tspan><tspan class="cls-8" x="18.7" y="0">t</tspan><tspan x="23.7" y="0">erial</tspan></text>
+  <g>
+    <line class="cls-2" x1="139.52" y1="264.1" x2="139.52" y2="282.19"/>
+    <polygon class="cls-3" points="139.52 282.19 143.17 273.38 135.87 273.38 139.52 282.19"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="258.48" y1="282.19" x2="258.48" y2="264.1"/>
+    <polygon class="cls-3" points="258.48 264.1 254.83 272.91 262.13 272.91 258.48 264.1"/>
+  </g>
+  <rect class="cls-6" y="91.83" width="49.3" height="49.3"/>
+  <text class="cls-5" transform="translate(91.94 106.13)"><tspan class="cls-4" x="0" y="0">H</tspan><tspan x="9.11" y="0">AL</tspan><tspan class="cls-16" x="25.91" y="0">F</tspan><tspan class="cls-9" x="33.17" y="0">-CUT</tspan></text>
+  <text class="cls-5" transform="translate(91.94 136.43)"><tspan class="cls-15" x="0" y="0">p</tspan><tspan class="cls-1" x="7.73" y="0">o</tspan><tspan class="cls-12" x="15.18" y="0">w</tspan><tspan x="25.27" y="0">er</tspan></text>
+  <text class="cls-5" transform="translate(91.94 163.41)"><tspan x="0" y="0">or</tspan></text>
+  <text class="cls-5" transform="translate(210.45 136.43)"><tspan x="0" y="0">s</tspan><tspan class="cls-15" x="6.82" y="0">p</tspan><tspan x="14.55" y="0">eed</tspan></text>
+  <text class="cls-5" transform="translate(462.71 136.43)"><tspan x="0" y="0">m</tspan><tspan class="cls-13" x="11.56" y="0">a</tspan><tspan class="cls-8" x="18.7" y="0">t</tspan><tspan x="23.7" y="0">erial</tspan></text>
+  <g>
+    <line class="cls-2" x1="139.52" y1="121.77" x2="139.52" y2="139.87"/>
+    <polygon class="cls-3" points="139.52 139.87 143.17 131.06 135.87 131.06 139.52 139.87"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="258.48" y1="121.77" x2="258.48" y2="139.87"/>
+    <polygon class="cls-3" points="258.48 139.87 262.13 131.06 254.83 131.06 258.48 139.87"/>
+  </g>
+  <text class="cls-5" transform="translate(91.94 187.26)"><tspan class="cls-15" x="0" y="0">p</tspan><tspan class="cls-1" x="7.73" y="0">o</tspan><tspan class="cls-12" x="15.18" y="0">w</tspan><tspan x="25.27" y="0">er</tspan></text>
+  <text class="cls-5" transform="translate(210.45 187.26)"><tspan x="0" y="0">s</tspan><tspan class="cls-15" x="6.82" y="0">p</tspan><tspan x="14.55" y="0">eed</tspan></text>
+  <g>
+    <line class="cls-2" x1="139.52" y1="190.7" x2="139.52" y2="172.6"/>
+    <polygon class="cls-3" points="139.52 172.6 135.87 181.42 143.17 181.42 139.52 172.6"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="258.48" y1="190.7" x2="258.48" y2="172.6"/>
+    <polygon class="cls-3" points="258.48 172.6 254.83 181.42 262.13 181.42 258.48 172.6"/>
+  </g>
+  <polygon class="cls-2" points="447.65 136.43 332.87 136.43 332.87 121.77 387.52 121.77 390.26 127.77 392.48 121.77 447.65 121.77 447.65 136.43"/>
+  <polygon class="cls-2" points="417.71 264.1 417.71 266.16 362.82 266.16 362.82 264.1 332.87 264.1 332.87 278.76 447.65 278.76 447.65 264.1 417.71 264.1"/>
+</svg>
