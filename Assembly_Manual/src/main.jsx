@@ -10,6 +10,8 @@ import HowToSection from './HowToSection.jsx';
 import { Loader } from '@react-three/drei'
 import SvgContainer from './Containers/svgContainer.jsx'
 import { useProgress } from '@react-three/drei'
+import LaserInstructions from './laser.jsx'
+import useInterface from './stores/useInterface.jsx'
 
 
 
@@ -59,11 +61,17 @@ const App = React.lazy(() => import('./App.jsx'))
 
 export default function Main() {
 reloadPage()
+    const languageEN = useInterface((state) => { return state.languageEN })
+    
+    useEffect(()=>{
+   languageEN()
+    },[])
+    
     return<>
 
     <Suspense fallback={<Loader />}>
-            {/*  <Router> */}
-                <ModelProvider>
+             {/* <Router>  */}
+                {/* <ModelProvider> */}
 
                     <div className='header'>
                         <Header />
@@ -71,21 +79,20 @@ reloadPage()
 
                     <div id='app'>
                         {/* <ErrorBoundary> */}
-                          {/* <Routes>
+                           {/*  <Routes>
                                 <Route path='/*' element={<App />} />
-                                <Route path='/HowTo/*' element={<HowToSection />} />
-                             </Routes>  */} 
-                              <App/>
-                
+                                 <Route path='/laser/*' element={<LaserInstructions />} />
+                              </Routes>   */} 
+                <App />
                        {/* </ErrorBoundary> */} 
 
                     </div>
 
 
-                </ModelProvider>
+                {/* </ModelProvider> */}
  
-{/*             </Router> 
- */}         </Suspense > 
+           {/*  </Router>  */}
+          </Suspense > 
 
     </>
 }

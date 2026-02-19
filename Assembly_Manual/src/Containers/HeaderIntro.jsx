@@ -84,9 +84,9 @@ export default function HeaderIntro() {
                 </ul>
 
             </div>
-            <button className='hamburger' onClick={toggleMobileMenu}>
+{/*             <button className='hamburger' onClick={toggleMobileMenu}>
                 &#8801;
-            </button>
+            </button> */}
 
         </HeaderBar>
     </>

@@ -19,6 +19,9 @@ export const ModelProvider = ({ children }) => {
     const [howToTitle, setCurrentHowToTitle] = useState()
     const [stepSVG, setStepSVG] = useState()
     const [partBtnState, setPartButton] = useState()
+    const [laserMenuCount, setLaserMenuCount] = useState(0)
+    const [laserTitleArray, setLaserTitleList] = useState([]);
+
 
     const setProperties = (name) => {
         setModelProperties(name)
@@ -84,6 +87,14 @@ export const ModelProvider = ({ children }) => {
         setPartButton(state)
     }
 
+    const setLaserCount = (number) =>{
+        setLaserMenuCount(number)
+    }
+
+    const setLaserTitleArray = (array) =>{
+        setLaserTitleList(array)
+    }
+
     return (
         <ModelContext.Provider value={{
             modelProperties, setProperties,
@@ -101,7 +112,9 @@ export const ModelProvider = ({ children }) => {
             howToTitle, setHowToTitle,
             stepSVG, setCurrentSVG,
             currentObject, setCurrentObject,
-            partBtnState, setPartButtonState
+            partBtnState, setPartButtonState,
+            laserMenuCount, setLaserCount,
+            laserTitleArray, setLaserTitleArray
         }}>
             {children}
         </ModelContext.Provider>

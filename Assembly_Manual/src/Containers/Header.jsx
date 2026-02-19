@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import { SlGlobe } from "react-icons/sl";
 import { MdClose, MdMenu } from "react-icons/md";
+import useInterface from "../stores/useInterface";
 
 
 const HeaderBar = styled.header`
@@ -17,10 +18,25 @@ width: 100%;
         font-family: Barlow;
     font-size: medium;
 `;
+let mainLanguage
+let assemblyTitle
 
 export default function Header() {
 
     const [isShown, setIsShown] = useState(false);
+    const language = useInterface((state) => { return state.language })
+    useEffect(()=>{
+        
+            if (language == 'EN'){
+                        mainLanguage = "/main"
+                        assemblyTitle = "Assembly Instructions"
+            }
+            if (language == 'DE'){
+                        mainLanguage = "/main-de"
+                        assemblyTitle = "Montageanleitung"
+            }
+         },[])
+
 
     const toggleMobileMenu = () => {
         setIsShown(!isShown);
@@ -80,9 +96,12 @@ export default function Header() {
             <div className={isShown? 'navMenuMobile': 'navMenu'} >
                <ul>
                     <li><NavLink to="/">intro</NavLink></li>
+                    {assemblyTitle? <li><NavLink to={mainLanguage}> {assemblyTitle}</NavLink></li>: null}
+                    <li><NavLink to="/laser">Laser Cutting</NavLink></li>
                     <li><SlGlobe style={{textAlign: "center", fontSize: "30px", paddingTop:"10px"}}/></li>
                     <li><NavLink to="/main">EN</NavLink></li>
                     <li><NavLink to="/main-de">DE</NavLink></li>
+                    
                     {/*   
                     <li><NavLink to='/HowTo' target="_blank">How To</NavLink></li>                   */}
                 </ul> 
