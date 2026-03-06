@@ -57,7 +57,7 @@ setClickedPath(tempTitleArray[0])
     }, [])
 
     return <>
-        <aside  className="stepNavi" style={{width: "200px"}}>
+        <aside  className="stepNavi" style={{width: "280px"}}>
             <ul>
                {laserTitleArray ? laserTitleArray.map((name, index) => <li key={index}>
                 {path && path == name ?

@@ -36,12 +36,13 @@ export default function LaserInstructions(){
                         <div id='app'>
                             <LaserMenu/>
 
-                            <section id="currentStepArea">
+                            <section id="currentLaserArea">
                                 
-                                            <h2 id="stepTitleArea" style={{fontSize: "xx-large"}}>{path === 'undefined' ? '' : path}
+                                
+                                            <h2 id="laserTitleArea">{path === 'undefined' ? '' : path}
                                             </h2>
-                                            <nav className='currentStepBar' >
-                                                <div style={{float: "right"}}>
+                                            <nav className='currentStepBar' style={{zIndex:1}} >
+                                                <div className="laserNavi">
  {laserMenuCount >= 1 ?
             <button onClick={buttonClickPrevious} className="btn" id="nextStep" > &#10094; </button> : null}
 
