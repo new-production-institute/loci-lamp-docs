@@ -218,7 +218,7 @@ font-family: Barlow;
     transition: background-color 0.2s ease-in-out;
     position: absolute;
     top: 50%;
-    right: 25px;
+    right: 15px;
     transform: translateY(-50%);
     display: none;
 }
@@ -467,8 +467,8 @@ margin-top: 60px;
      display: flex;
     flex-direction: column; */
     width: auto;
-    right: 25px;
-    margin-top: 290px;
+    right: 15px;
+    margin-top: 420px;
     z-index: 100;
     background-color: rgba(255, 255, 255);
 
@@ -743,7 +743,7 @@ margin-top: 60px;
         overflow-y: auto;
         margin-top: 40px;
         padding-left: 200px;
-        padding-right: 400px;
+        padding-right: 20%;
 
 }
 .sectionLaser li {
@@ -761,8 +761,8 @@ display: block;
   justify-content: center;
   align-items: center;
   margin: auto;
-  height: 20%;
-  max-height: 450px;
+  height: 30%;
+  max-height: 600px;
   max-width: fit-content;
   width: auto;
 padding: 30px;
@@ -772,13 +772,13 @@ padding: 30px;
 }
 .laserNavi{
     float: right;
-    padding-right: 400px;
+    padding-right: 20%;
 }
 
 .iFrame{
     width: 100%;
         margin-top: 30px;
-height: 400px;
+height: 600px;
 border: 0px;
 }
 .bomTable, td, th {
@@ -791,35 +791,40 @@ border: 0px;
   margin-top: 30px;
 }
 
+
+
 /* Media queries for responsiveness */
 @media screen and (max-width: 1300px) {
     .textArea{
 margin-top: 30px;
+padding-top: 50px;
 }
 .laserNavi{
-    padding-right: 20%;
+    padding-right: 30px;
+    margin-top: -40px;
 }
 #laserTitleArea {
     font-family: Barlow;
     font-size: xx-large;
-    padding-top: 5px;
+    padding-top: 0px;
         margin: 0px;
     float: left;
+    width: 100%;
     height: fit-content;
     padding-left: 20%;
     padding-right: 20%;
+    position: relative;
+    order: 1;
 }
 
 .sectionLaser {
         font-family: Barlow;
-        height: 85%;
-        margin-top: 50px;
+        height: 90%;
         overflow-y: auto;
         padding-left: 20%;
         padding-right: 20%;
-
-
 }
+
 .sectionImage{
 display: flex;
   justify-content: center;
@@ -856,18 +861,66 @@ width: 100%;
     }
 
         #currentStepArea{
-    margin-left: 70px;
-    /*     display: block; */
+    margin-left: 16px;
+         display: block;
     margin-right: 20px;
+    margin-top: 80px;
+
     }
             #currentLaserArea{
     margin-left: 20px;
-    /*     display: block; */
+    display: block; 
     margin-right: 20px;
+    margin-top: 60px;
     }
-    
+     .currentStepBar{
+        position: absolute;
+        float: right;
+        margin-right: 16px;
+        display: block;
+
+    }
+        #stepTitleArea{
+        display: block;
+        position: absolute;
+        width: 100%;
+        order:1;
+        font-size: 22px;
+    }
+        .infoColumn{
+         position: absolute;
+ /*         display: block;
+ */        height: calc(100% - 250px);
+         order: 2; 
+                 margin-top: 60px;
+/*                  width: 100%;
+ */                 overflow: auto;
+
+    }
+    #viewArea {
+           margin-left: auto;
+    position: relative;
+    display: block;
+    width: calc(100% - 220px);
+    height: calc(100% - 100x);
+    z-index: 5;
+    padding: 0px;
+padding-top: 60px;
+padding-bottom: 5px;
+    }
+
+    #stepControl{
+        margin-top: -60px;
+        margin-right: 22px;
+    }
+    #partsOut{
+margin-top: 60px; 
+margin-right: 2px;
+   }
 
 }
+
+
 @media screen and (max-width: 720px) {
     
     .mainLogo{
@@ -879,7 +932,7 @@ width: 100%;
     #stepTitleArea{
         display: block;
         position: absolute;
-        margin-top: 50px;
+        margin-top: 0px;
         width: 100%;
         order:1;
         font-size: 22px;
@@ -889,6 +942,7 @@ width: 100%;
     }
     .laserNavi{
     padding-right: 0px;
+    margin-top: -60px;
 }
     .currentStepBar{
         position: absolute;
@@ -904,6 +958,7 @@ width: 100%;
         width: calc(100% - 30px);
     }
         #currentLaserArea{
+            padding-top: 20px;
         margin-left: 16px;
         margin-right: 16px;
         position: relative;
@@ -916,7 +971,7 @@ width: 100%;
         display: block;
         height: 150px;
          order: 2; 
-                 margin-top: 110px;
+                 margin-top: 60px;
                  width: 100%;
                  overflow: auto;
 
@@ -963,14 +1018,27 @@ width: 100%;
         display: none;
     }
 #laserTitleArea{
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 0%;
+    padding-right: 0%;
+    width: 100%;
 }
 .sectionLaser{
-        padding-left: 10%;
-    padding-right: 10%;
+        padding-left: 0%;
+    padding-right: 0%;
     height: calc(100% - 60px) ;
     margin-top: 80px;
+}
+
+#partsOut{
+margin-top: 0px;
+}
+
+#stepControl{
+    margin-right: -10px;
+}
+
+.textArea{
+    padding-top: 80px;
 }
 
     

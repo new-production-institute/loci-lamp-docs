@@ -16,11 +16,11 @@ export default function CameraPositions() {
     const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
 
     const cameraCurrentPosition = new THREE.Vector3(4, 1, 8)
-
+    
     useFrame((state, delta) => {
         if (cameraPositionTag === 'initial' && wiringStep === false) {
 
-            smoothedCameraPosition.lerp(cameraCurrentPosition, 0.1)
+            smoothedCameraPosition.lerp(cameraCurrentPosition, 0.1 )
             smoothedCameraTarget.lerp([0, 0, 0], 0.1)
             state.camera.position.copy(smoothedCameraPosition)
             state.camera.lookAt(smoothedCameraTarget)

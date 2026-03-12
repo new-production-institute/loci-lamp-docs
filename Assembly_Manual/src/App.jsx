@@ -27,8 +27,8 @@ export default function App() {
 
 
 
-    const modelIn = useGLTF('./Tchibo_IN_r.glb') //Substitute the file name here for ALL IN
-    const modelOut = useGLTF('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
+    const modelIn = useGLTF('./Tchibo_IN_Test2_r.glb') //Substitute the file name here for ALL IN
+    const modelOut = useGLTF('./Tchibo_OUT_Test2_r.glb') //Substitute the file name here for ALL OUT
     const modelInCopy = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelInCopy2 = useMemo(() => modelIn.scene.clone(), [modelIn])
     const modelOutCopy = useMemo(() => modelOut.scene.clone(), [modelOut])
@@ -39,8 +39,8 @@ export default function App() {
     const cameraControlsRef = useRef()
     const modelRef = useRef()
 
-    useGLTF.clear('./Tchibo_IN_r.glb')  //Substitute the file name here for ALL IN
-    useGLTF.clear('./Tchibo_OUT_r.glb') //Substitute the file name here for ALL OUT
+    useGLTF.clear('./Tchibo_IN_Test2_r.glb')  //Substitute the file name here for ALL IN
+    useGLTF.clear('./Tchibo_OUT_Test2_r.glb') //Substitute the file name here for ALL OUT
 
     const reset = useInterface((state) => state.resetCamera)
         const languageSwitch = useInterface((state) => state.languageEN)
@@ -84,7 +84,7 @@ export default function App() {
                         <Canvas linear flat
                             frameloop='demand'
                             camera={{
-                                fov: 45,
+                                fov:  45,
                                 near: 1,
                                 far: 10,
                                 position: [4, 1, 8]
@@ -100,7 +100,7 @@ export default function App() {
                                 clip
                                 observe
                                 damping={2}
-                                margin={0.85}
+                                margin={1.2}
                             >
                                 {/* <primitive object={new THREE.AxesHelper(50)} /> */}
                                 <Suspense fallback={null} >

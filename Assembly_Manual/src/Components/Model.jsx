@@ -70,7 +70,8 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
     //steps grouping
     const exceptionArray = [ //shown alone
                 "07_Place_the_shade_on_the_structure",
-                "07_Lampenschirm_auf_die_Struktur_setzen"
+                "07_Lampenschirm_auf_die_Struktur_setzen",
+                "08_Finished!"
     ]
     const preparingStepArray = [ //shown grouped
         [
@@ -85,6 +86,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
         ]
     ]
     const wiringStepArray = [ //add schematic
+        "00_Prepare_the_parts"
     ]
 
     const mainMachineBuildArray = []
@@ -112,6 +114,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                 stepsNames.push(children.name) //for title
                 stepsNamesNavi.push(children.userData.name) //for navigation
             }
+            console.log(model)
         }, [])
 
         //sorts the step titles in the correct order for title
@@ -446,14 +449,18 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                     //onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}
                     object={model}
                     scale={1.0001}
-                // onDoubleClick={highlightOnClick} 
-                //position-y={0.01}
+/*                     rotation-x={Math.PI * 0.5}
+ */                // onDoubleClick={highlightOnClick} 
+                /* position-x={0.09}  */
                 >
                 </primitive >
                 {/* </Bvh>  */}
                 < primitive ref={machineAux}
                     object={modelAux}
                     scale={1}
+/*                      rotation-x={Math.PI * 0.5} 
+ */                     /* position-x={0.09}  */
+
                 >
                 </primitive >
             </>

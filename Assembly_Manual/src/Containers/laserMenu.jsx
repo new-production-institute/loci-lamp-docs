@@ -2,6 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 import { NavLink, Link } from "react-router-dom";
 import { ModelContext } from '../Components/ModelContext';
 import axios from 'axios';
+import useInterface from '/stores/useInterface.jsx';
+import { MdClose, MdMenu } from "react-icons/md";
+
 
 
 let counter = 0;
@@ -10,6 +13,7 @@ let howToTitleArray = new Array();
 let arrayNumber = 0;
 let filteredArr = new Array();
 let howTos;
+let btnTitle
 
 
 
@@ -56,8 +60,42 @@ setClickedPath(tempTitleArray[0])
             });
     }, [])
 
+       const [isShown, setIsShown] = useState(false);
+        
+            const toggleMobileMenu = () => {
+                setIsShown(!isShown);
+            };
+        
+             useEffect(() => {
+            const handleResize = () => {
+              if (window.innerWidth < 890) {
+                setIsShown(false);
+              } 
+            };
+        
+            window.addEventListener("resize", handleResize);
+            handleResize();
+        
+            return () => window.removeEventListener("resize", handleResize);
+          }, []);
+
+              const language = useInterface((state) => { return state.language })
+          
+    
+    useEffect(()=>{
+            if (language == 'EN'){
+                        btnTitle = "Steps"
+            }
+                if (language == 'DE'){
+                        btnTitle = "Schritte"     
+            }
+         },[language])
+
     return <>
-        <aside  className="stepNavi" style={{width: "280px"}}>
+    <button className='hamburgerStepNavi' onClick={toggleMobileMenu} >
+                             {isShown ? <MdClose />: `${btnTitle}` }
+                        </button>
+        <aside  className={isShown? 'stepNaviMobile': 'stepNavi'} style={{width: "280px"}}>
             <ul>
                {laserTitleArray ? laserTitleArray.map((name, index) => <li key={index}>
                 {path && path == name ?

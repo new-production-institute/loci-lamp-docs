@@ -24,7 +24,7 @@ export default function IntroDE() {
 {/*  <button className="btn" onClick={goToApp}>Let's start!</button>
  */} 
 
-			 	 <Link to="/main-de" className='btnIntro' style={{ textDecoration: 'none' }}>Los geht's!</Link>
+			 	 <Link to="/assembly-de" className='btnIntro' style={{ textDecoration: 'none' }}>Los geht's!</Link>
                  
 		</div>
 

@@ -26,7 +26,7 @@ export default function Intro() {
 {/*  <button className="btn" onClick={goToApp}>Let's start!</button>
  */} 
 
-			 	 <Link to="/main" className='btnIntro' style={{ textDecoration: 'none' }}>Let's start!</Link>
+			 	 <Link to="/assembly" className='btnIntro' style={{ textDecoration: 'none' }}>Let's start!</Link>
 
 		</div>
 

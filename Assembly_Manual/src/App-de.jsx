@@ -101,7 +101,7 @@ export default function AppDE() {
                                 clip
                                 observe
                                 damping={2}
-                                margin={0.85}
+                                margin={1.2}
                             >
                                 {/* <primitive object={new THREE.AxesHelper(50)} /> */}
                                 <Suspense fallback={null} >
