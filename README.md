@@ -1,2 +1,5 @@
-# locilamp-docs
-<div align="center"><h1 style=align="center">Tchibo Locilamp</h1></div>
+# LOCILAMP web-based documentation
+
+This web-based documentataion is based on the [online-documentation](https://github.com/satshas/Online-Documentation) framework by [InMachines](https://www.inmachines.net/).
+
+
