@@ -47,22 +47,7 @@ const App = React.lazy(() => import('./App.jsx'))
         return this.props.children;
     }
 }  */
-    const reloadPage = ()=> {
-    const reloadCount = sessionStorage.getItem('reloadCount');
-    if(reloadCount < 2) {
-      sessionStorage.setItem('reloadCount', String(reloadCount + 1));
-      window.location.reload();
-                //console.log(reloadCount)
-
-    } else {
-      sessionStorage.removeItem('reloadCount');
-    }
-  }
-
-
-
 export default function Assembly() {
-reloadPage()
     const languageEN = useInterface((state) => { return state.languageEN })
     
     useEffect(()=>{
@@ -98,4 +83,3 @@ reloadPage()
 
     </>
 }
-

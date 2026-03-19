@@ -46,19 +46,7 @@ const AppDE = React.lazy(() => import('./App-de.jsx'))
     }
 }  */
 
-        const reloadPage = ()=> {
-    const reloadCount = sessionStorage.getItem('reloadCount');
-    if(reloadCount < 2) {
-      sessionStorage.setItem('reloadCount', String(reloadCount + 1));
-      window.location.reload();
-    } else {
-      sessionStorage.removeItem('reloadCount');
-    }
-  }
-
 export default function AssemblyDE() {
-
-    reloadPage()
     
     const languageDE = useInterface((state) => { return state.languageDE })
     
@@ -97,4 +85,3 @@ export default function AssemblyDE() {
 
     </>
 }
-

@@ -8,23 +8,7 @@ import LaserText from "./Containers/laserText.jsx";
 import { ModelContext } from "./Components/ModelContext.jsx";
 import { useContext } from "react";
 
-    const reloadPage = ()=> {
-    const reloadCount = sessionStorage.getItem('reloadCount');
-    if(reloadCount < 2) {
-      sessionStorage.setItem('reloadCount', String(reloadCount + 1));
-      //window.location.reload();
-          console.log(reloadCount)
-
-    } else {
-      sessionStorage.removeItem('reloadCount');
-    } 
-  }
-
-
 export default function LaserInstructions(){
-    
-
-    reloadPage()
 
         let {path, laserMenuCount, setLaserCount, laserTitleArray} = useContext(ModelContext)
 

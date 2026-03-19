@@ -20,6 +20,7 @@ export default {
     },
     build:
     {
+        target: 'es2019',
         outDir: '../dist',
         emptyOutDir: true,
         sourcemap: true
