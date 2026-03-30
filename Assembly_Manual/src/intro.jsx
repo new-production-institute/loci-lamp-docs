@@ -16,7 +16,7 @@ export default function Intro() {
 <div  className="container">
 
 		<div className="text">
-                <img src="Tchibo_Logo_negative.svg" className='responsive' />
+                <img src="locilamp-logo_white.svg" className='responsive' />
 
 <h1 style={{marginBottom:"10px", marginTop: "40px"}} >LOCI LAMP</h1> 
 <h2 style={{marginBottom:"40px"}}>assembly instructions</h2>
