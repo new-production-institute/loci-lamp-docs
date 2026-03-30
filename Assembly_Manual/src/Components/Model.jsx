@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useContext, useState, useMemo } from "react";
 import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect.js"
 import { extend, useThree } from "@react-three/fiber";
-import {  Group, MeshBasicMaterial, EdgesGeometry, LineBasicMaterial, LineSegments} from 'three'
+import { Group, MeshBasicMaterial, EdgesGeometry, LineBasicMaterial, LineSegments } from 'three'
 import { ModelContext } from "./ModelContext.jsx";
 import { useCallback } from "react";
-import { Selection} from "@react-three/postprocessing";
+import { Selection } from "@react-three/postprocessing";
 
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import * as THREE from 'three';
@@ -18,10 +18,8 @@ import { ConditionalEdgesShader } from '../ConditionalEdgesShader.js';
 
 extend({ OutlineEffect })
 
-//Array of step names
-const stepsNames = []
-//Array of names for navigation menu
-const stepsNamesNavi = []
+//Array of step names removed from here
+//Array of names for navigation menu removed from here
 
 export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, modelOutCopy }) {
 
@@ -69,9 +67,9 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
 
     //steps grouping
     const exceptionArray = [ //shown alone
-                "07_Place_the_shade_on_the_structure",
-                "07_Lampenschirm_auf_die_Struktur_setzen",
-                "08_Finished!"
+        "07_Place_the_shade_on_the_structure",
+        "07_Lampenschirm_auf_die_Struktur_setzen",
+        "08_Finished!"
     ]
     const preparingStepArray = [ //shown grouped
         [
@@ -102,27 +100,29 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
             setModel(modelOutCopy)
             setCurrentObj(modelOutCopy.getObjectByName(stepName[stepCount]))
         }
-    }, [partsInOut])
-
+    }, [partsInOut]) 
     useEffect(() => { //activated once in the first render
         // if (machineOutline.current) {
         //     machineOutline.current.scale.multiplyScalar(1.5)
         // }
-        //let groupGeo = new BufferGeometry()
+        //let groupGeo = new BufferGeometry() 
+        const newStepsNames = []
+        const newStepsNamesNavi = []
+
         model.traverse((children) => { //creates and array with the step titles names
             if (children.isObject3D && !children.isMesh && !children.isGroup) {
-                stepsNames.push(children.name) //for title
-                stepsNamesNavi.push(children.userData.name) //for navigation
+                newStepsNames.push(children.name) //for title
+                newStepsNamesNavi.push(children.userData.name) //for navigation
             }
             console.log(model)
         }, [])
 
         //sorts the step titles in the correct order for title
-        stepsNames.sort()
-        setStepName(stepsNames)
+        newStepsNames.sort()
+        setStepName(newStepsNames)
         //sorts the step titles in the correct order for navigation
-        stepsNamesNavi.sort()
-        setStepNameNavi(stepsNamesNavi)
+        newStepsNamesNavi.sort()
+        setStepNameNavi(newStepsNamesNavi)
 
         //applies material for already built part (modelAux)
         modelAux.traverse((o) => {
@@ -141,9 +141,9 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                 machineMaterial.dispose()
             }
         })
-  
-        setCurrentStepObj(modelInCopy.getObjectByName(stepName[0]))
-        setCurrentObj(model.getObjectByName(stepName[0]))
+
+        setCurrentStepObj(modelInCopy.getObjectByName(newStepsNames[0]))
+        setCurrentObj(model.getObjectByName(newStepsNames[0]))
 
         partsListChange()
         invalidate()
@@ -155,13 +155,17 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
     const wiringStep = useInterface((state) => { return state.wiringStep })
     const isWiringStep = useInterface((state) => { return state.isWiringStep })
     const isNotWiringStep = useInterface((state) => { return state.isNotWiringStep })
-    
-    if (wiringStepArray.some(arr => arr.includes(stepName[stepCount]))) {
-        isWiringStep()
-    }
-    else {
-        isNotWiringStep()
-    }
+
+    useEffect(() => {
+        if (stepName && stepName[stepCount]) {
+            if (wiringStepArray.some(arr => arr.includes(stepName[stepCount]))) {
+                isWiringStep()
+            }
+            else {
+                isNotWiringStep()
+            }
+        }
+    }, [stepName, stepCount, isWiringStep, isNotWiringStep, wiringStepArray])
 
 
     useEffect(() => { //activates if stepCount or stepName changed
@@ -175,7 +179,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
 
     useEffect(() => {
         if (currentModel) {
-          
+
             setCurrentObject(currentModel.getObjectByName(stepName[stepCount])) //assigns the model of current step
             if (selectedParts != []) {
                 highlightParts()
@@ -222,8 +226,8 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                     if (children.isGroup && children.userData.name != undefined) {
                         partsNamesArray.push(children.userData.name)
                     }
-                    if (children.isMesh && children.name=="Light_Bulb*" || children.isMesh && children.name=="Leuchtmittel*"){
-                                                partsNamesArray.push(children.userData.name)
+                    if (children.isMesh && children.name == "Light_Bulb*" || children.isMesh && children.name == "Leuchtmittel*") {
+                        partsNamesArray.push(children.userData.name)
 
                     }
                     //unifies repeated names
@@ -339,7 +343,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                         highlightMaterial.dispose()
                         geometry.dispose()
                         lineHighlightMat.dispose()
-                    }  else if (mesh.isMesh && currentModel.children[i].userData.name != "Curves") {
+                    } else if (mesh.isMesh && currentModel.children[i].userData.name != "Curves") {
                         mesh.frustumCulled = false //fixes disappearing faces
                         mesh.material = machineCurrentMaterial
                         //const clonedGeometry = mesh.geometry.clone()
@@ -349,7 +353,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                         mesh.add(wireframe);
                         geometry.dispose()
                         lineMat.dispose()
-                    } 
+                    }
                     else if (mesh.userData.name === "Curves") { //Assigns material to curves
                         mesh.frustumCulled = false //fixes disappearing faces
                         mesh.material = curvesMaterial
@@ -365,14 +369,15 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                         //curvesMaterial.dispose()
                     }
 
-                })           }
+                })
+            }
             setSavedSelectedParts(selectedParts)
 
         }
 
     })
 
-    
+
     const stepChange = useCallback(() => {
 
         if (currentModel) {
@@ -415,7 +420,11 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
     }, [currentModel])
 
     const { setListOfStep } = useContext(ModelContext)
-    setListOfStep(stepNameNavi)
+    useEffect(() => {
+        if (stepNameNavi) {
+            setListOfStep(stepNameNavi)
+        }
+    }, [stepNameNavi, setListOfStep])
 
     //stepModel = model.scene.getObjectByName(`03-1_PreparingBallScrewY`, true)
 
@@ -423,7 +432,7 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
     //const effect = new OutlineEffect(gl)
     // }, []);
     const [hovered, hover] = useState(null)
-    
+
     return <>
 
         <Selection>
@@ -449,8 +458,8 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                     //onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}
                     object={model}
                     scale={1.0001}
-/*                     rotation-x={Math.PI * 0.5}
- */                // onDoubleClick={highlightOnClick} 
+                /*                     rotation-x={Math.PI * 0.5}
+                 */                // onDoubleClick={highlightOnClick} 
                 /* position-x={0.09}  */
                 >
                 </primitive >
@@ -458,8 +467,8 @@ export default function Model({ modelIn, modelOut, modelInCopy, modelInCopy2, mo
                 < primitive ref={machineAux}
                     object={modelAux}
                     scale={1}
-/*                      rotation-x={Math.PI * 0.5} 
- */                     /* position-x={0.09}  */
+                /*                      rotation-x={Math.PI * 0.5} 
+                 */                     /* position-x={0.09}  */
 
                 >
                 </primitive >
