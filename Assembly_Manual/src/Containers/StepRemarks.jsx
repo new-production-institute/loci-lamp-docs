@@ -1,137 +1,79 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { ModelContext } from '/Components/ModelContext.jsx';
-import axios from 'axios';
 import { LuAlertCircle } from "react-icons/lu";
 import useInterface from '/stores/useInterface.jsx';
+import { fetchWorkbookSteps } from './workbookData.js'
 
-let counter = 1;
-let counterDE = 1;
+function getRemarksTitle(language) {
+    return language === 'DE' ? 'Bemerkungen' : 'Remarks'
+}
 
-let stepArray = new Array();
-let stepArrayDE = new Array();
-let stepRemarksArray = new Array();
-let arrayNumber = 0;
-let filteredArr = new Array();
-let stepRemarks;
-let remarksTitle
+function getCurrentStepRows(language, stepCount, stepGroups) {
+    const groups = language === 'DE' ? stepGroups.DE : stepGroups.EN
+    return groups[stepCount] || []
+}
 
-//Get data from the Workbook
-axios.get('https://sheets.googleapis.com/v4/spreadsheets/11ayVTVvDEbOezJJSL6N2_ct-rm7NgKWlpBPqqtvVh5U/values/Workbook?key=AIzaSyCqcO7MQv4dsj76ps3nNJnMwTT8Cvqv-eM')
-    .then(response => {
+function getStepRemarks(rows) {
+    return rows.map((row) => row[10]).filter(Boolean)
+}
 
-        let ourData = response.data.values;
-        let bufferArray = new Array();
-
-        for (const row of ourData) {
-            if (counter > 2 && row[1] != '') {
-                stepArray.push(bufferArray);
-                bufferArray = new Array();
-                bufferArray.push(row);
-            } else {
-                bufferArray.push(row);
-            }
-            ++counter;
-        }
-
-    })
-axios.get('https://sheets.googleapis.com/v4/spreadsheets/11ayVTVvDEbOezJJSL6N2_ct-rm7NgKWlpBPqqtvVh5U/values/Workbook-DE?key=AIzaSyCqcO7MQv4dsj76ps3nNJnMwTT8Cvqv-eM')
-    .then(response => {
-
-        let ourDataDE = response.data.values;
-        let bufferArrayDE = new Array();
-
-        for (const row of ourDataDE) {
-            if (counterDE > 2 && row[1] != '') {
-                stepArrayDE.push(bufferArrayDE);
-                bufferArrayDE = new Array();
-                bufferArrayDE.push(row);
-            } else {
-                bufferArrayDE.push(row);
-            }
-            ++counterDE;
-        }
-
-    })
-    
-
-export default function StepRemarks() {
-
-    let { stepCount } = useContext(ModelContext)
-    const boxVisibility = useInterface((state) => { return state.isVisible })
-    const language = useInterface((state) => { return state.language })
-
-     const [stepRemarksTitleArray, setStepRemarksTitleArray] = useState();
-
-    const isNotVisibleToggle = useInterface((state) => { return state.isNotVisibleToggle })
-    const isVisibleToggle = useInterface((state) => { return state.isVisibleToggle })
-
- useEffect(()=>{
-    if (language == 'EN'){
-                remarksTitle = "Remarks"
-    }
-        if (language == 'DE'){
-                remarksTitle = "Bemerkungen"     
-    }
- },[language])
+function useStepGroups() {
+    const [stepGroups, setStepGroups] = useState({ EN: [], DE: [] })
 
     useEffect(() => {
+        let isCurrent = true
 
-        stepRemarks = new Array();
-        
-if (language == 'EN'){
-        //Change list of remarks
-        for (const row of stepArray[stepCount + 1]) {
-            if (row[10] != '' && row[10] != undefined) {
-                filteredArr = new Array();
-                filteredArr.push(row[10]);
-                stepRemarks.push(filteredArr);
+        async function loadStepGroups() {
+            try {
+                const [enSteps, deSteps] = await Promise.all([
+                    fetchWorkbookSteps('Workbook'),
+                    fetchWorkbookSteps('Workbook-DE'),
+                ])
+                if (!isCurrent) return
+                setStepGroups({ EN: enSteps, DE: deSteps })
+            } catch (error) {
+                if (!isCurrent) return
+                setStepGroups({ EN: [], DE: [] })
+                console.error('Error fetching step remarks data:', error)
             }
-            ++counter;
-        };
+        }
 
+        loadStepGroups()
+        return () => { isCurrent = false }
+    }, [])
+
+    return stepGroups
 }
 
-if (language == 'DE'){
-        //Change list of remarks
-        for (const row of stepArrayDE[stepCount + 1]) {
-            if (row[10] != '' && row[10] != undefined) {
-                filteredArr = new Array();
-                filteredArr.push(row[10]);
-                stepRemarks.push(filteredArr);
-            }
-            ++counterDE;
-        };
-        
-}
+export default function StepRemarks() {
+    const { stepCount } = useContext(ModelContext)
+    const boxVisibility = useInterface((state) => { return state.isVisible })
+    const language = useInterface((state) => { return state.language })
+    const isNotVisibleToggle = useInterface((state) => { return state.isNotVisibleToggle })
+    const isVisibleToggle = useInterface((state) => { return state.isVisibleToggle })
+    const stepGroups = useStepGroups()
+    const stepRemarks = useMemo(() => {
+        const currentRows = getCurrentStepRows(language, stepCount, stepGroups)
+        return getStepRemarks(currentRows)
+    }, [language, stepCount, stepGroups])
 
-    }, [stepCount])
+    useEffect(() => {
+        if (stepRemarks.length === 0) {
+            isNotVisibleToggle()
+            return
+        }
 
-        useEffect(() => {
-        let tempArray = [];
-
-       // if (stepRemarks != undefined) {
-             
-            //setStepRemarksTitleArray(tempArray)
-            if (stepRemarks.length === 0) {
-                isNotVisibleToggle()
-            }
-            else {
-                isVisibleToggle()
-            }
-       // }
-    }, [stepCount])
+        isVisibleToggle()
+    }, [isNotVisibleToggle, isVisibleToggle, stepRemarks])
 
     return <>
-        {stepRemarks ? <div>
+        {stepRemarks.length > 0 ? <div>
             <div id='RemarksTitle' style={{ alignContent: 'baseline', visibility: `${boxVisibility}` }} >
-                <h3> <LuAlertCircle /> {remarksTitle}</h3> <br />
+                <h3> <LuAlertCircle /> {getRemarksTitle(language)}</h3> <br />
             </div>
             <ul>
                 {stepRemarks.map((name, index) => <li key={index}> {name}</li>)}
-
             </ul>
         </div> : null}
     </>
-
-
 }

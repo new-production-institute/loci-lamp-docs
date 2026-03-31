@@ -1,9 +1,16 @@
 import './style.css'
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HeaderIntro from './Containers/HeaderIntro'
+import { useEffect } from 'react';
+import useInterface from './stores/useInterface.jsx';
 
 
 export default function IntroDE() {
+    const languageDE = useInterface((state) => state.languageDE)
+
+    useEffect(() => {
+        languageDE()
+    }, [languageDE])
 
     return <>
 
